@@ -6,9 +6,9 @@ PANDOC_OPTIONS="-V fontsize=10pt -V  --pdf-engine=xelatex "
 
 # Primero transformamos el PDF a txt y  luego procesamos cosas
 
-#cat Listado1.txt | grep -v "^CENTRO" | grep -v "^DIRECC" | grep -v "^LOCAL"  | grep -v "LISTADO DE ALUMNOS"| grep -v "^$"| tr -s " "| grep -v "^Orden" | grep -v "^ Curso" | sed -e "s%GRUPO%   GRUPO%g" | cut -d " " -f4-| rev | cut -c 8- | rev | sed "s%GRUPO%\nGRUPO%g"
+cat Listado2025.txt | grep -v "^CENTRO" | grep -v "^DIRECC" | grep -v "^LOCAL"  | grep -v "LISTADO DE ALUMNOS"| grep -v "^$"| grep -v "academico" | tr -s " "| grep -v "^Orden" | grep -v "^ Curso" | sed -e "s%GRUPO%   GRUPO%g" | cut -d " " -f4-| rev | cut -c 8- | rev | sed "s%GRUPO%\nGRUPO%g" > listado-final.txt
 
-cat head.yml
+#cat head.yml
 
 cat listado-final.txt | while read line; do
 
@@ -30,8 +30,8 @@ cat listado-final.txt | while read line; do
                 # Obtener la parte del Apellido antes de la posición
                 parte_antes="${apellido:0:2}"
                 # Obtener la parte del Apellido a partir de la posición y transformarla en asteriscos
-                parte_despues="${apellido:posicion}"
-                parte_transformada="${parte_despues//?/*}"
+                parte_despues="${apellido:2}"
+                parte_transformada="${parte_despues//?/\\*}"
 
                 # Concatenar ambas partes
                 apellidosLOPD="${apellidosLOPD}, ${parte_antes}${parte_transformada}"
